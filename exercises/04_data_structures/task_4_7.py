@@ -16,3 +16,5 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+maclist=mac.split(':')
+print("{:b}{:b}{:b}".format(int(maclist[0],base=16),int(maclist[1],base=16),int(maclist[2],base=16)))
