@@ -30,8 +30,8 @@ Out[1]: '11111111111111111111111111110000'
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-#net=input('Введите сеть в формате: 10.1.1.0/24 :')
-net="10.1.1.0/24"
+net=input('Введите сеть в формате: 10.1.1.0/24 :')
+#net="10.1.1.0/24"
 netlist=net.split('/')[0].split('.')
 mask=net.split('/')[1]
 
@@ -45,9 +45,10 @@ Network:
 mask_template='''
 Mask:
 /{}
-{}
+{:<10}{:<10}{:<10}{:<10}
+{}  {}  {}  {}
 '''
 print(network_template.format(netlist[0],netlist[1],netlist[2],netlist[3],int(netlist[0]),int(netlist[1]),int(netlist[2]),int(netlist[3])))
 bitmask='1'*int(mask)+'0'*(32-int(mask))
 
-print(mask_template.format(mask,bitmask))
+print(mask_template.format(mask,int(bitmask[0:8],base=2),int(bitmask[8:16],base=2),int(bitmask[16:24],base=2),int(bitmask[24:32],base=2),bitmask[:8],bitmask[8:16],bitmask[16:24],bitmask[24:32]))
