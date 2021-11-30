@@ -49,3 +49,35 @@ bin_ip = "00001010000000010000000111000011"
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+net=input('Введите сеть в формате: 10.1.1.0/24 :')
+#net="10.0.1.1/24"
+#0b1010 00000001 00000001 00000000
+ip=net.split('/')[0].split('.')
+mask=net.split('/')[1]
+bin_mask='1'*int(mask)+'0'*(32-int(mask))
+#print(ip)
+
+bin_ip=str(bin(int(ip[0])*2**24+int(ip[1])*2**16+int(ip[2])*2**8+int(ip[3])))[2:]
+bin_ip='0'*(32-len(bin_ip))+bin_ip
+bin_ip_net=bin_ip[:-(32-int(mask))]+'0'*(32-int(mask))
+ip_net=str(int(bin_ip_net[0:8],base=2))+'.'+str(int(bin_ip_net[8:16],base=2))+'.'+str(int(bin_ip_net[16:24],base=2))+'.'+str(int(bin_ip_net[24:32],base=2))
+
+network_template='''
+Network:
+{:10}{:10}{:10}{:10}
+{:8}  {:8}  {:8}  {:8}
+'''
+mask_template='''
+Mask:
+/{}
+{:<10}{:<10}{:<10}{:<10}
+{}  {}  {}  {}
+'''
+print(network_template.format(str(int(bin_ip_net[0:8],base=2)),str(int(bin_ip_net[8:16],base=2)),
+str(int(bin_ip_net[16:24],base=2)),str(int(bin_ip_net[24:32],base=2)),
+bin_ip_net[0:8],
+bin_ip_net[8:16],
+bin_ip_net[16:24],
+bin_ip_net[24:32]))
+
+print(mask_template.format(mask,int(bin_mask[0:8],base=2),int(bin_mask[8:16],base=2),int(bin_mask[16:24],base=2),int(bin_mask[24:32],base=2),bin_mask[:8],bin_mask[8:16],bin_mask[16:24],bin_mask[24:32]))
