@@ -66,7 +66,14 @@ trunk_template = [
 mode=input('ведите режим работы интерфейса (access/trunk): ')
 inter=input('Введите тип и номер интерфейса: ')
 vlans=input('Введите номер влан(ов): ')
+#mode='trunk'
+#inter='Fa0/1'
+#vlans='1.2.3'
+
 selector={'access':access_template,'trunk':trunk_template}
-print('interface ',inter)
-output='\n'.join(str(selector[mode]))
-print(output.format(vlans))
+print('interface',inter)
+output=selector[mode]
+#print()
+stringa='\n'.join(output)
+#print(stringa)
+print(stringa.format(vlans))
