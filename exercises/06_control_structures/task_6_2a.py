@@ -23,26 +23,19 @@ ip_list = ip.split('.')
 
 if ip_list[0].isdigit() and ip_list[1].isdigit() and ip_list[2].isdigit() and ip_list[3].isdigit():
     if int(ip_list[0]) >= 0 and int(ip_list[0]) <= 255:
-        if int(ip_list[1]) >= 0 and int(ip_list[1]) <= 255 :
-            if int(ip_list[2]) >= 0 and int(ip_list[2]) <= 255 :
-                if int(ip_list[3]) >= 0 and int(ip_list[3]) <= 255 :
-                     if ip == '0.0.0.0':
-                         print('unassigned')
-                     elif ip == '255.255.255.255':
-                         print('local broadcast')
-                     elif int(ip_list[0]) in range(1,223):
-                         print('unicast')
-                     elif int(ip_list[0]) in range(224,239):
-                         print('multicast')
-                     else:
-                         print('unused')
-                 else:
-                     print('4 wrong!')
-             else:
-                 print('3 wrong!')
-
-
-
+        if int(ip_list[1]) >= 0 and int(ip_list[1]) <= 255:
+            if int(ip_list[2]) >= 0 and int(ip_list[2]) <= 255:
+                if int(ip_list[3]) >= 0 and int(ip_list[3]) <= 255:
+                    if ip == '0.0.0.0':
+                        print('unassigned')
+                    elif ip == '255.255.255.255':
+                        print('local broadcast')
+                    elif int(ip_list[0]) in range(1, 223):
+                        print('unicast')
+                    elif int(ip_list[0]) in range(224, 239):
+                        print('multicast')
+                    else:
+                        print('unused')
 else:
-  print('Неправильный IP-адрес')
+    print('Неправильный IP-адрес')
 print('Done!')
