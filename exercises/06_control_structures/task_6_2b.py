@@ -12,12 +12,12 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-ip=input('Введите IP-адрес в формате 10.0.1.1 :')
-
-ip_list = ip.split('.')
-a_correct=True
-
 while True:
+
+   ip=input('Введите IP-адрес в формате 10.0.1.1 :')
+   ip_list = ip.split('.')
+   a_correct=True
+
    if not len(ip_list) == 4:
        a_correct=False
    if a_correct:
@@ -41,14 +41,15 @@ while True:
 
    if a_correct:
        if ip == '0.0.0.0':
-            print('unassigned')
-    elif ip == '255.255.255.255':
-        print('local broadcast')
-    elif int(ip_list[0]) in range(1, 223):
-        print('unicast')
-    elif int(ip_list[0]) in range(224, 239):
-        print('multicast')
-    else:
-        print('unused')
-else:
-    print('Неправильный IP-адрес')
+           print('unassigned')
+       elif ip == '255.255.255.255':
+           print('local broadcast')
+       elif int(ip_list[0]) in range(1, 223):
+           print('unicast')
+       elif int(ip_list[0]) in range(224, 239):
+           print('multicast')
+       else:
+           print('unused')
+       break 
+   else:
+       print('Неправильный IP-адрес')
