@@ -17,3 +17,14 @@
 """
 
 ignore = ["duplex", "alias", "configuration"]
+from sys import argv
+with open(argv[1],'r') as f:
+    for line in f:
+        if line and not line.startswith('!'):
+            print(line.rstrip('\n'))
+            for item in ignore:
+                try:
+                    if line.split().index(item):
+                         print('-')
+                except ValueError: 
+                  print('.')
