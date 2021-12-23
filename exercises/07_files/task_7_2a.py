@@ -21,10 +21,16 @@ from sys import argv
 with open(argv[1],'r') as f:
     for line in f:
         if line and not line.startswith('!'):
-            print(line.rstrip('\n'))
+            linec = line.rstrip('\n').split()
+            ignored = False
             for item in ignore:
-                try:
-                    if line.split().index(item):
-                         print('-')
-                except ValueError: 
-                  print('.')
+                for word in linec:
+                    if word == item:
+                        ignored = True
+#      print('Ignored!')
+#                        print(item)
+#                        print(linec)
+            if not ignored:
+#                print('Not ignored!')
+                print(line.rstrip('\n'))
+
