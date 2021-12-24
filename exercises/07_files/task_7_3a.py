@@ -40,3 +40,15 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+with open('CAM_table.txt','r') as f:
+    line_list=[]
+    for line in f:
+        line=line.strip()
+        if line and line.split()[0][0].isdigit():
+            line_list.append([int(line.split()[0]), line.split()[1], line.split()[3]]) 
+    line_list.sort()
+    for line in line_list:
+        print('{:<8}{:20}{}'.format(line[0],line[1],line[2]))
+
+
+
