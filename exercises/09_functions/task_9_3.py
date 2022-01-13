@@ -31,19 +31,21 @@ def get_int_vlan_map(config_filename):
       for line in f:
         line=line.rstrip()
         if line and line.rstrip() != '!':
-#          print(line)
+
           if line.startswith('interface'):
             intf=line.split(' ')[-1]
-#            print('+'*10 + '   '+    intf)
+
           if line.startswith(' switchport access vlan'):
             vlan = int(line.lstrip().split(' ')[3])
-#            print('+'*10 + '   '+    vlan)
             access_dict[intf]=vlan
+
           if line.startswith(' switchport trunk allowed'):
             vlans = line.lstrip().split(' ')[4].split(',')
-            trunk_dict[intf]=vlans
-#            print('+'*10 + '   ')
-#            print(vlans)
+            vlans_int=[]
+            for item in vlans:
+                vlans_int.append(int(item))
+            trunk_dict[intf]=vlans_int
+
   pass
   return (access_dict,trunk_dict)
 
