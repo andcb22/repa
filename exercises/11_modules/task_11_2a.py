@@ -80,9 +80,17 @@ infiles = [
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
-]
-
+   ]
+def unique_network_map(topology_dict):
+  for key in topology_dict.keys():
+    print(key) 
+  pass
+  return(topology_dict)
 
 if __name__ == "__main__":
-    print(create_network_map(infiles))
-
+    network_dict=(create_network_map(infiles))
+    print(network_dict)
+    print
+    unique_network_dict=unique_network_map(network_dict) 
+    print(unique_network_dict)
+#    draw_topology(network_dict)
