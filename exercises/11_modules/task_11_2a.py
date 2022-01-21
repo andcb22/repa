@@ -83,7 +83,11 @@ infiles = [
    ]
 def unique_network_map(topology_dict):
   for key in topology_dict.keys():
-    print(key) 
+    print('key--- ',end='')
+    print(key)
+    if key in topology_dict.values():
+        print('on key : ',end='')
+        print(topology_dict[key])
   pass
   return(topology_dict)
 
