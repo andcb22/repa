@@ -82,19 +82,38 @@ infiles = [
     "sh_cdp_n_r3.txt",
    ]
 def unique_network_map(topology_dict):
+  uniq_dict={}  
   for key in topology_dict.keys():
-    print('key--- ',end='')
-    print(key)
+#print('key--- ',end='')
+#    print(key)
     if key in topology_dict.values():
+        print(key,end='')
         print('on key : ',end='')
         print(topology_dict[key])
+    else:
+
+        print()
   pass
+  print('Keys there:')
+  print(topology_dict.keys())
+  print('Values there:')
+
+  print(topology_dict.values())
+
   return(topology_dict)
 
 if __name__ == "__main__":
     network_dict=(create_network_map(infiles))
     print(network_dict)
-    print
+    print()
     unique_network_dict=unique_network_map(network_dict) 
+    print()
     print(unique_network_dict)
+    print()
+    for key in unique_network_dict:
+        print(key,end=' ')
+        print(unique_network_dict[key])
+
+
+
 #    draw_topology(network_dict)
