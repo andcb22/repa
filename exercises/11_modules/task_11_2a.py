@@ -82,38 +82,38 @@ infiles = [
     "sh_cdp_n_r3.txt",
    ]
 def unique_network_map(topology_dict):
-  uniq_dict={}  
+  uniq_dict=topology_dict.copy()  
+  sav_key=[]
   for key in topology_dict.keys():
-#print('key--- ',end='')
-#    print(key)
     if key in topology_dict.values():
-        print(key,end='')
-        print('on key : ',end='')
-        print(topology_dict[key])
-    else:
-
-        print()
+        if key not in sav_key:
+#            print('sav key : ',end=' : ')
+#            print(sav_key)
+#            print('deleted key : ',end=' : ')
+#            print(key)
+            del uniq_dict[key]
+            sav_key.append(topology_dict[key])
+#            print('-'*20)
+#    else:
+#        print()
   pass
-  print('Keys there:')
-  print(topology_dict.keys())
-  print('Values there:')
+  return(uniq_dict)
 
-  print(topology_dict.values())
-
-  return(topology_dict)
+def print_dict(network_dict):
+    print('lengh of dict : ',end='')
+    print(len(network_dict))
+    for key in network_dict:
+        print(key, end='has value : ')
+        print(network_dict[key])
 
 if __name__ == "__main__":
     network_dict=(create_network_map(infiles))
-    print(network_dict)
-    print()
+#    print('Source dict:')
+#   print_dict((network_dict))
     unique_network_dict=unique_network_map(network_dict) 
-    print()
-    print(unique_network_dict)
-    print()
-    for key in unique_network_dict:
-        print(key,end=' ')
-        print(unique_network_dict[key])
+#    print('Destination dict :')
+#   print_dict(unique_network_dict)
 
 
 
-#    draw_topology(network_dict)
+    draw_topology(unique_network_dict)
