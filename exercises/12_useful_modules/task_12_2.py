@@ -34,3 +34,26 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+import ipaddress
+
+#ip_list=['10.1.1.1']
+ip_list=['10.1.1.1-10']
+
+
+def convert_ranges_to_ip_list(ip_list):
+    ip_list_out=[]
+    for ip in ip_list:
+        
+
+
+#alone ip
+        ip_list_out.append(str(ipaddress.ip_address(ip)))
+    pass
+    return(ip_list_out)
+
+
+
+
+if __name__ == "__main__":
+    print(convert_ranges_to_ip_list(ip_list))
+
