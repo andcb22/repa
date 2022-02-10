@@ -44,10 +44,13 @@ def convert_ranges_to_ip_list(ip_list):
     ip_list_out=[]
     for ip in ip_list:
         
-
-
-#alone ip
-        ip_list_out.append(str(ipaddress.ip_address(ip)))
+        if len(ip.split('.')) == 4:
+            if ip.split('.')[3].isdigit():
+                #alone ip
+                ip_list_out.append(str(ipaddress.ip_address(ip)))
+            else:
+                ip1=ip.split('.')[3].split('-')[0] 
+        
     pass
     return(ip_list_out)
 
