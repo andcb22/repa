@@ -37,7 +37,7 @@
 import ipaddress
 
 #ip_list=['10.1.1.1']
-ip_list=['10.1.1.1-10']
+ip_list=['10.0.0.1','10.1.1.1-10']
 
 
 def convert_ranges_to_ip_list(ip_list):
@@ -49,7 +49,15 @@ def convert_ranges_to_ip_list(ip_list):
                 #alone ip
                 ip_list_out.append(str(ipaddress.ip_address(ip)))
             else:
-                ip1=ip.split('.')[3].split('-')[0] 
+#                ipa=int(ip.split('.')[3].split('-')[0])
+#                ipb=int(ip.split('.')[3].split('-')[1])
+#                print(ipa)
+#                print(ipa+1)
+#                print(ipb)
+                for i in range(int(ip.split('.')[3].split('-')[0]),int(ip.split('.')[3].split('-')[1])+1):
+                  ipi=(ip.split('.')[0]+'.'+ip.split('.')[1]+'.'+ip.split('.')[2]+'.'+str(i))  
+                  ip_list_out.append(ipi)
+                  print(i)
         
     pass
     return(ip_list_out)
