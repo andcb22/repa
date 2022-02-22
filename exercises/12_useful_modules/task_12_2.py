@@ -37,7 +37,11 @@
 import ipaddress
 
 #ip_list=['10.1.1.1']
-ip_list=['10.0.0.1','10.1.1.1-10']
+#ip_list=['10.0.0.1','10.1.1.1-10']
+#ip_list=['172.21.41.128-172.21.41.132']
+#ip_list=['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
+ip_list=["10.1.1.1", "10.4.10.10-13", "192.168.1.12-192.168.1.15"]
+
 
 
 def convert_ranges_to_ip_list(ip_list):
@@ -48,18 +52,21 @@ def convert_ranges_to_ip_list(ip_list):
             if ip.split('.')[3].isdigit():
                 #alone ip
                 ip_list_out.append(str(ipaddress.ip_address(ip)))
+#                print('alone digit!')
             else:
-#                ipa=int(ip.split('.')[3].split('-')[0])
-#                ipb=int(ip.split('.')[3].split('-')[1])
-#                print(ipa)
-#                print(ipa+1)
-#                print(ipb)
                 for i in range(int(ip.split('.')[3].split('-')[0]),int(ip.split('.')[3].split('-')[1])+1):
                   ipi=(ip.split('.')[0]+'.'+ip.split('.')[1]+'.'+ip.split('.')[2]+'.'+str(i))  
                   ip_list_out.append(ipi)
-                  print(i)
-        
-    pass
+#                  print(i)
+        elif len(ip.split('.')) == 7:
+            net=ip.split('.')[0]+'.'+ip.split('.')[1]+'.'+ip.split('.')[2]
+            diap=ip.split('.')[3]
+            ip1=int(diap.split('-')[0])
+            ip2=int(diap.split('-')[1])
+            for ips in range(ip1,ip2):
+                ipi=net+'.'+str(ips)
+                ip_list_out.append(ipi)
+            
     return(ip_list_out)
 
 
