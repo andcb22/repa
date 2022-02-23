@@ -62,8 +62,8 @@ def convert_ranges_to_ip_list(ip_list):
             net=ip.split('.')[0]+'.'+ip.split('.')[1]+'.'+ip.split('.')[2]
             diap=ip.split('.')[3]
             ip1=int(diap.split('-')[0])
-            ip2=int(diap.split('-')[1])
-            for ips in range(ip1,ip2):
+            ip2=int(ip.split('.')[6])
+            for ips in range(ip1,ip2+1):
                 ipi=net+'.'+str(ips)
                 ip_list_out.append(ipi)
             
