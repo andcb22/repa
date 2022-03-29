@@ -20,38 +20,32 @@ Reachable    Unreachable
 """
 from tabulate import tabulate
 ip_unreachable=['1.2.3.a','1.2.3.b','1.22.3.c']
-ip_reachable=['1.1.1.1','1.1.1.2']
+#ip_reachable=['1.1.1.1','1.1.1.2']
+ip_reachable=['1.1.1.1','1.1.1.2','1.2.2.2','1.1.5.5']
 def print_ip_table(ip_reachable,ip_unreachable):
-    headers=('Reachable','Unreachable')
     list_ip_2=[]
+    headers=('Reachable','Unreachable')
 
     if len(ip_unreachable) >= len(ip_reachable):
-        print('select len unreachable - ' + str(len(ip_unreachable)))
-        length = len(ip_unreachable)
+        for length in range(len(ip_unreachable)):
+            if length >= len(ip_reachable):
+                list_ip_2.append(['',ip_unreachable[length]])
+            else:
+                list_ip_2.append([ip_reachable[length],ip_unreachable[length]])
+            print(list_ip_2)
     else:
-        length = len(ip_reachable)
-
-    print(length)
-    
-    while length:
-        if ip_unreachable[length]:
-            a=ip_unreachable[length]
-        else:
-            a=''
-        if ip_reachable[length]:
-            b=ip_reachable[length]
-        else:
-            b=''
-        length -= 1
-        list_ip_2.append([a,b])
-    print(list_ip_2)
+        for length in range(len(ip_reachable)):
+            if length >= len(ip_unreachable):
+                list_ip_2.append(['',ip_unreachable[length]])
+            else:
+                list_ip_2.append([ip_reachable[length],ip_unreachable[length]])
+            print(list_ip_2)
 
 
 
 
 
-
-    print(tabulate(zip(ip_reachable,ip_unreachable),headers=headers))
+    print(tabulate(list_ip_2,headers=headers))
 
 if __name__ == "__main__":
     print_ip_table(ip_reachable,ip_unreachable)
