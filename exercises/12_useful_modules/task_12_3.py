@@ -32,14 +32,14 @@ def print_ip_table(ip_reachable,ip_unreachable):
                 list_ip_2.append(['',ip_unreachable[length]])
             else:
                 list_ip_2.append([ip_reachable[length],ip_unreachable[length]])
-            print(list_ip_2)
+#            print(list_ip_2)
     else:
         for length in range(len(ip_reachable)):
             if length >= len(ip_unreachable):
-                list_ip_2.append(['',ip_unreachable[length]])
+                list_ip_2.append(['',ip_reachable[length]])
             else:
                 list_ip_2.append([ip_reachable[length],ip_unreachable[length]])
-            print(list_ip_2)
+#            print(list_ip_2)
 
 
 
