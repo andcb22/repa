@@ -39,9 +39,18 @@ data = [
 headers = ["hostname", "ios", "platform"]
 
 def convert_to_dict(headers, data):
-    for header in headers:
-        data_dict[header]=
-    pass
+    data_list=[]
+    data_dict={}
+    for data_string in data:
+#        print(data_string)
+        for header in headers:
+#            print(header)
+#            print(headers.index(header))
+#            print(data_string[headers.index(header)])
+            data_dict[header]=data_string[headers.index(header)]
+        data_list.append(data_dict)
+        data_dict={}
+    return(data_list)
 
 
 
