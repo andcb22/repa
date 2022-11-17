@@ -32,21 +32,29 @@ sw2_dhcp_snooping.txt, sw3_dhcp_snooping.txt.
 
 """
 import csv
+import re
 
 def write_dhcp_snooping_to_csv(filenames, output):
-    print('In function!')
-    headers='switch,mac,ip,vlan,interface'
-    for file in filenames:
-        print(file)
-#with open(file,'r') as f:
-#            print(f.read())
+    headers=['switch','mac','ip','vlan','interface']
+    regex=(r'^(?P<MAC>\S+)\s+(?P<IP>[\d.]+)\s.+\s(?P<INT>[a-zA-Z0-9/]+\d+)$')
+    with open(output,'w') as fw:
+        writer = csv.writer(fw)
+        writer.writerow(headers)
+        for file in filenames:
+#            print(file)
+            with open(file,'r') as f:
+                switchname=file.split('_')[0]
+                for line in f:
+                    match=re.search(regex,line)
+                    if match:
+#print(match.group('INT'))
+                        to_csv=(switchname,match.group('MAC'),match.group('IP'),match.group('INT'))
+                        writer.writerow(to_csv)
     pass
 
 
 if __name__ == "__main__":
-    print('Main body!')
-    filenames='sw3_dhcp_snooping.txt'
+    filenames=['sw1_dhcp_snooping.txt','sw2_dhcp_snooping.txt','sw3_dhcp_snooping.txt']
     output='out.csv'
-
     write_dhcp_snooping_to_csv(filenames, output)
 
