@@ -36,19 +36,23 @@ import re
 
 def write_dhcp_snooping_to_csv(filenames, output):
     headers=['switch','mac','ip','vlan','interface']
-    regex=(r'^(?P<MAC>\S+)\s+(?P<IP>[\d.]+)\s.+\s(?P<INT>[a-zA-Z0-9/]+\d+)$')
+   #regex=(r'^(?P<MAC>\S+)\s+(?P<IP>[\d.]+)\s.+\s(?P<INT>[a-zA-Z0-9/]+\d+)$')
+    regex=(r'^(?P<MAC>\S+)\s+(?P<IP>[\d.]+)\s.+\s+(?P<VLAN>\d+)\s+(?P<INT>[a-zA-Z0-9/]+\d+)$')
     with open(output,'w') as fw:
         writer = csv.writer(fw)
         writer.writerow(headers)
         for file in filenames:
-#            print(file)
+#           print(file)
             with open(file,'r') as f:
                 switchname=file.split('_')[0]
                 for line in f:
+#                   print(line)
                     match=re.search(regex,line)
                     if match:
 #print(match.group('INT'))
-                        to_csv=(switchname,match.group('MAC'),match.group('IP'),match.group('INT'))
+#                       print(match.group('IP'))
+#                       print(match.group('VLAN'))
+                        to_csv=(switchname,match.group('MAC'),match.group('IP'),match.group('VLAN'),match.group('INT'))
                         writer.writerow(to_csv)
     pass
 
