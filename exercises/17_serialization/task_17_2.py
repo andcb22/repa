@@ -44,8 +44,54 @@
 """
 
 import glob
+import re
+import csv
 
-sh_version_files = glob.glob("sh_vers*")
-# print(sh_version_files)
+def parse_sh_version(summary):
+#    print(summary)
+    regexp=(r'Cisco IOS Software.+\sVersion\s([\w\(\)\.]+),\s.*')
+    match=re.search(regexp,summary)
+    if match:
+        ios=match.group(1)
+#        print('IOS - ' + ios)
+    regexp=(r'System image file is "(\S+)"')
+    match=re.search(regexp,summary)
+    if match:
+        image=match.group(1)
+#        print('image - ' + image)
+    regexp=(r'router uptime is (.+)')
+    match=re.search(regexp,summary)
+    if match:
+        uptime=match.group(1)
+#        print('uptime - ' + uptime)
+    return(ios,image,uptime)
 
-headers = ["hostname", "ios", "image", "uptime"]
+
+def write_inventory_to_csv(data_filenames,csv_filename):
+    headers = ["hostname", "ios", "image", "uptime"]
+
+    with open(csv_filename, 'w') as fw:
+        writer=csv.writer(fw,quoting=csv.QUOTE_NONNUMERIC)
+        writer.writerow(headers)
+        for file in data_filenames:
+            with open(file ,'r') as fr:
+                #sh_version_r1.txt
+                match=re.search(r'version_(.+)\.txt',file)
+                if match:
+                    switchname=match.group(1)
+#                    print('device - ' + switchname)
+#                print(parse_sh_version(fr.read()))
+                to_csv_string=[switchname]+list(parse_sh_version(fr.read()))
+#                to_csv_string.append(switchname)
+#                print(to_csv_string)
+                writer.writerow(to_csv_string)
+    pass
+
+if __name__ == "__main__":
+    sh_version_files = glob.glob("sh_vers*")
+#    sh_version_files = ['sh_version_r1.txt']
+#    print(sh_version_files)
+    write_inventory_to_csv(sh_version_files,'out.csv')
+
+
+
