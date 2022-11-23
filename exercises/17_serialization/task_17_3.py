@@ -27,22 +27,21 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 import re
 
 def parse_sh_cdp_neighbors(file_output):
-    print(file_output)
-    print('------done print file---------')
-    regexp=()
     for line in file_output.split('\n'):
         match=re.search(r'(\S+)>show cdp neighbors',line)
         if match:
             switchname=match.group(1)
-            print('Switchname is -' + switchname)
-            break
-#match=re
-        print(line)
-    pass
+        match=re.search(r'Device ID.+',line)
+        if match:
+            top_dict={}
+        match = re.search(r'(?P<DEV>\S+)\s+(?P<LINT>\S+\s+\S+)\s+(\d+)\s+.+\s+(\S+)\s+(?P<RINT>\S+\s+\S+)',line)
+        if match:
+            top_dict[match.group('LINT')]={match.group('DEV'):match.group('RINT')}
+    return({switchname:top_dict})
 
 
 if __name__ == "__main__":
     filename='sh_cdp_n_sw1.txt'
     with open(filename, 'r') as fr:
         file_output=fr.read()
-        parse_sh_cdp_neighbors(file_output)
+        print(parse_sh_cdp_neighbors(file_output))
