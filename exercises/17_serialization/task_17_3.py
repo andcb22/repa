@@ -24,3 +24,25 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Проверить работу функции на содержимом файла sh_cdp_n_sw1.txt
 """
+import re
+
+def parse_sh_cdp_neighbors(file_output):
+    print(file_output)
+    print('------done print file---------')
+    regexp=()
+    for line in file_output.split('\n'):
+        match=re.search(r'(\S+)>show cdp neighbors',line)
+        if match:
+            switchname=match.group(1)
+            print('Switchname is -' + switchname)
+            break
+#match=re
+        print(line)
+    pass
+
+
+if __name__ == "__main__":
+    filename='sh_cdp_n_sw1.txt'
+    with open(filename, 'r') as fr:
+        file_output=fr.read()
+        parse_sh_cdp_neighbors(file_output)
