@@ -39,6 +39,7 @@
 import re
 import yaml
 
+
 def parse_sh_cdp_neighbors(file_output):
     for line in file_output.split('\n'):
         match=re.search(r'(\S+)>show cdp neighbors',line)
