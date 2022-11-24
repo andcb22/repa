@@ -36,3 +36,39 @@
 в файл topology.yaml. Он понадобится в следующем задании.
 
 """
+import re
+import yaml
+
+def parse_sh_cdp_neighbors(file_output):
+    for line in file_output.split('\n'):
+        match=re.search(r'(\S+)>show cdp neighbors',line)
+        if match:
+            switchname=match.group(1)
+        match=re.search(r'Device ID.+',line)
+        if match:
+            top_dict={}
+        match = re.search(r'(?P<DEV>\S+)\s+(?P<LINT>\S+\s+\S+)\s+(\d+)\s+.+\s+(\S+)\s+(?P<RINT>\S+\s+\S+)',line)
+        if match:
+            top_dict[match.group('LINT')]={match.group('DEV'):match.group('RINT')}
+    return({switchname:top_dict})
+
+def generate_topology_from_cdp(list_of_files,save_to_filename=None):
+    the_dict={}
+    for file in list_of_files:
+        with open(file,'r') as fr:
+            file_output=fr.read()
+            the_dict.update(parse_sh_cdp_neighbors(file_output))
+        
+    if save_to_filename:
+        with open(save_to_filename,'w') as fw:
+            yaml.dump(the_dict,fw)
+         
+    return(the_dict)
+    
+    
+    
+
+if __name__ == "__main__":
+     list_of_files=['sh_cdp_n_sw1.txt', 'sh_cdp_n_r1.txt', 'sh_cdp_n_r2.txt','sh_cdp_n_r3.txt','sh_cdp_n_r4.txt','sh_cdp_n_r5.txt','sh_cdp_n_r6.txt']
+     save_to_file='topology.yaml'
+     generate_topology_from_cdp(list_of_files,save_to_file)
