@@ -64,8 +64,16 @@ def convert_datetime_to_str(datetime_obj):
 def write_last_log_to_csv(source_log, output):
     with open(source_log, 'r') as fw:
         reader = csv.reader(fw)
-        for row in reader:
+#        print(reader)
+        headers=next(reader)
+        print('Headers are - ',headers)
+        print()
+        list_reader=list(reader)
+        for row in list_reader:
             print(row)
+            user=row[1]
+            logtime=row[2]
+            print('user - ',user,'logged at -',logtime)
     
     pass
 
