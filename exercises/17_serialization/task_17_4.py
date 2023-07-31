@@ -69,12 +69,20 @@ def write_last_log_to_csv(source_log, output):
         print('Headers are - ',headers)
         print()
         list_reader=list(reader)
+        dict_user={}
         for row in list_reader:
             print(row)
             user=row[1]
             logtime=row[2]
-            print('user - ',user,'logged at -',logtime)
-    
+            username=row[0]
+            print('user - ',user,'logged at -',logtime,'set name - ',username)
+            if not dict_user.get(user):
+                print('got dict user   :', user)
+                print('set username  :', username)
+                print('at time :',logtime)
+                dict_user[user]=[username,logtime]
+            else:
+                print('wass user ', user, 'username ',dict_user[user][0],'at  ',dict_user[user][1])
     pass
 
 
