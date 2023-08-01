@@ -75,25 +75,23 @@ def write_last_log_to_csv(source_log, output):
             user=row[1]
             logtime=row[2]
             username=row[0]
-            print()
-            print('user - ',user,'logged at -',logtime,'set name - ',username)
+            
             if not dict_user.get(user):
-                print('got new user   :', user)
-                print('set username  :', username)
-                print('at time :',logtime)
+                
                 dict_user[user]=[username,logtime]
             else:
-                print('was user ', user, 'username ',dict_user[user][0],'at  ',dict_user[user][1])
-                print('time in dict',convert_str_to_datetime(dict_user[user][1]))
-                print('time in file',convert_str_to_datetime(logtime))
+                
                 if convert_str_to_datetime(dict_user[user][1]) < convert_str_to_datetime(logtime) :
-                    print('next this user in file is newer!')
+                
                     dict_user[user]=[username,logtime]
-    print(headers)
-    for key in dict_user.keys():
-        print(key)
-                    
-    return(dict_user)
+    
+    with open(output,'w') as fw:
+        writer = csv.writer(fw)
+        writer.writerow(headers)
+        for key in dict_user.keys():
+            to_csv=(dict_user[key][0], key,  dict_user[key][1])
+            writer.writerow(to_csv)            
+    return
 
 
 
